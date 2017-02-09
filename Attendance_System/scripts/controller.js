@@ -10,7 +10,7 @@ var myApp = angular.module('myApp',[]);
   		$scope.markingAtt = true;
   		//if this url works, then try to put both in one script
   		//alert("Student id is : "+$scope.studentid);
-  		var url = "https://script.google.com/macros/s/AKfycbxxXo6-ECVSZFFHyz4bpWWso0tLuHip8R5nOoxqPZcyu9Nszs1r/exec?studentid="+$scope.studentid+"&batch="+$scope.batch+"&markattendance=true";
+  		var url = "https://script.google.com/macros/s/AKfycbxlIbgY8FNxTUHOJ4isajDPFGRBGwXS9Aovvf8urw9-SUakqBSn/exec?studentid="+$scope.studentid+"&batch="+$scope.batch+"&markattendance=true";
   		$http.get(url)
   		.then(function(response){
   			if(response.data == -1){
@@ -29,7 +29,7 @@ var myApp = angular.module('myApp',[]);
 
   		$scope.loading = true;
 
-  		var url = "https://script.google.com/macros/s/AKfycbxxXo6-ECVSZFFHyz4bpWWso0tLuHip8R5nOoxqPZcyu9Nszs1r/exec?studentid="+student_id;
+  		var url = "https://script.google.com/macros/s/AKfycbxlIbgY8FNxTUHOJ4isajDPFGRBGwXS9Aovvf8urw9-SUakqBSn/exec?studentid="+student_id;
 
   		$http.get(url)
   		.then(function(response){
@@ -42,22 +42,33 @@ var myApp = angular.module('myApp',[]);
   				$scope.loading = false;
   			}else{
 
-          //--Check if payments are done here
 
 
-
-  				$scope.loading=false;
-  				$scope.results=true;
-  				
-  				$scope.reg_no = $scope.data.students[0].reg_no;
-  				$scope.name = $scope.data.students[0].kids_name;
-  				$scope.age = $scope.data.students[0].age;
+          $scope.loading=false;
+          $scope.results=true;
+          
+          $scope.reg_no = $scope.data.students[0].reg_no;
+          $scope.name = $scope.data.students[0].kids_name;
+          $scope.age = $scope.data.students[0].age;
           $scope.age_group = $scope.data.students[0].age_group;
           $scope.batch = $scope.data.students[0].batch;
           $scope.parents_name = $scope.data.students[0].parents_name;
           $scope.email = $scope.data.students[0].email;
           $scope.phone = $scope.data.students[0].phone;
           $scope.qr_code = $scope.data.students[0].qr_code;
+
+
+          //--Check if payments are done here
+          if($scope.data.payments[2].payment_type =="monthly"){
+            $scope.payment1 = true;
+
+          }else{
+            $scope.payment1 = true;
+          }
+
+          //if doesnt work delete payment details
+
+
 
 
 
