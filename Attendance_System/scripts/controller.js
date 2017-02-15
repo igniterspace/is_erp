@@ -1,9 +1,9 @@
 var myApp = angular.module('myApp',[]);
 
 	myApp.controller('DashboardCtrl', function($scope, $http, $location) {
-
+    
   	$scope.loading = false;
-
+    //THIS FUNCTION IS TO MARK ATTENDANCE
   	$scope.markAttendance = function(){
      // $route.reload();
      // window.location.reload(); go to starting page after attendance is marked
@@ -22,6 +22,42 @@ var myApp = angular.module('myApp',[]);
   		});
   	}
 
+
+    //-------------------------------
+    //THIS FUNCTION IS TO VIEW ATTENDANCE
+    $scope.viewAttendance = function(){
+      $scope.viewingAtt = true;
+      var url = "https://script.google.com/macros/s/AKfycbzcvdl840bsB3nneQmL2AYApFlccl9N-KOQacIllXVlyOuHaUo/exec?studentid="+$scope.studentid;
+      $http.get(url)
+      .then(function(response){
+        console.log(response);
+
+        $scope.data = response.data;
+
+        if(response.data == -1){
+          alert("Invalid ! This student has not attended any classes")
+        }
+        //$scope.viewingAtt = false;
+        //$scope.results = false; //to get back to menu
+        $scope.student_id = null; //clear the student id box
+
+
+        //----USE A FOR LOOOP HERE--------------------------------------------
+
+        $scope.AttDetails = [];
+        
+        for(var i=0; i<$scope.data.student_attendance.length; i++){
+          $scope.AttDetails.push($scope.data.student_attendance[i]);
+        }
+
+        //-------------------------------------------------------------------
+
+      });
+    }
+
+    //----------------------------------
+
+    //THIS FUNCTION IS TO GET THE STUDENT DETAILS WITH STUDENT ID
   	$scope.getStudentByID = function(student_id){
   		$scope.studentid = student_id;
 

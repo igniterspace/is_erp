@@ -5,6 +5,20 @@
     <script type="text/javascript" src="scripts/controller.js"></script>
 
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!--INCLUDING FOR DATA TABLES-->
+    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+
+
+
+
+
+
+
+
 </head>
 
 
@@ -43,7 +57,7 @@
 	<div ng-show="results" class="content">
 		<button ng-click="results=false;student_id=''" class="btn btn-danger btn-lg btn-outline btn-rounded">Back</button>
 		<br/>
-		<table border="1">
+		<table border="1" id="studentDetails" class="display">
 			<thead>
 				<tr>
 					<th>Registration Number</th>
@@ -72,8 +86,13 @@
 			</tbody>
 		</table>
 
+
+
+
+
+
                             
-<!-------------------------------------For the calculation and display of monthly payment-->
+		<!-------------------------------------For the calculation and display of monthly payment-->
 
         <h3>Payment Details</h3>
 
@@ -84,7 +103,6 @@
 	        		<a ng-hide="registration"  class="btn btn-danger btn-lg btn-outline btn-rounded">Registration</a>
 	        	</td>
 
-	        
 	        	<td>
 	        		<a ng-show="payment1"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 1</a>
 	        		<a ng-hide="payment1"  class="btn btn-danger btn-lg btn-outline btn-rounded">Payment 1</a>
@@ -128,12 +146,50 @@
 
 		<div ng-hide="markingAtt">
 			<button ng-click="markAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">Mark Attendance</button>
-			<button ng-click="viewAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">View Attendance</button>
 		</div>
 		<div ng-show="markingAtt">
-			Loading...
+			Marking ...
 		</div>
 
+		<!---->
+		<div ng-hide="viewingAtt">
+			<button ng-click="viewAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">View Attendance</button>
+		</div>
+		<div ng-show="viewingAtt">
+			<button ng-click="" class="btn btn-primary btn-lg btn-outline btn-rounded">Hide Attendance</button><!--CODE THIS LATER-->
+			<h1>RREMOVE DATA TABLES AND USE ANGULAR DATA TABLES</h1>
+
+			<table border="1" id="attendance">
+				<thead>
+					<tr>
+						<th>Registration Number</th>
+						<th>Date</th>
+						<th>Batch</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="att in AttDetails"  >
+
+						
+						<td >{{att.reg_no}}</td>
+						<td >{{att.date}}</td>
+						<td >{{att.batch}}</td>
+
+						<!--td ng-repeat="">{{dateAtt}}</td>
+						<td ng-repeat="">{{batchAtt}}</td-->
+
+		
+			
+					</tr>
+				</tbody>
+			</table>
+
+
+
+
+
+		</div>
+		<!---->
   
 
 
