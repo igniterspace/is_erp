@@ -107,7 +107,7 @@ var myApp = angular.module('myApp',[]);
             $scope.payment6 = false;
           }else{
             //for registration we check if its filled AND if payment_type is set to registration
-          if($scope.data.payments[0].payment_type == "registration"){
+          if(($scope.data.payments[0].payment_type).toLowerCase() == "registration"){
             $scope.registration = true;
           }else{
             $scope.registration = false;
@@ -161,13 +161,6 @@ var myApp = angular.module('myApp',[]);
 
           //if doesnt work delete payment details
 
-
-
-
-
-
-
-
   				//alert("data is valid"+$scope.data.students[0].StudentName);
   				//console.log($scope.data);
   				//----------------------------------------
@@ -177,4 +170,137 @@ var myApp = angular.module('myApp',[]);
 
   		});
   	}
+
+
+    //THIS FUNCTION IS TO OPEN THE VERIFY FORM WHEN A PAYMENT IS CLICKED
+    $scope.openForm = function(payment_type){
+
+      //clear the textboxes
+      $scope.amount = null;
+      $scope.username = null;
+      $scope.password = null;
+      
+      //if payment type is 0 its registration else it is monthly payment
+      //This if statement is to display the payment type in the form and to set it to payment_type variable
+      if(payment_type == 0){
+        $scope.payment_type = "registration";
+      }else
+      if(payment_type == 1)
+      {
+        $scope.payment_type = "monthly1"
+      }else
+      if(payment_type == 2)
+      {
+        $scope.payment_type = "monthly2"
+      }else
+      if(payment_type == 3)
+      {
+        $scope.payment_type = "monthly3"
+      }else
+      if(payment_type == 4)
+      {
+        $scope.payment_type = "monthly4"
+      }else
+      if(payment_type == 5)
+      {
+        $scope.payment_type = "monthly5"
+      }else
+      if(payment_type == 6)
+      {
+        $scope.payment_type = "monthly6"
+      }
+      else{
+        $scope.payment_type = "additional"
+      }
+
+
+
+      document.getElementById('formDiv').style.display = "block";
+    }
+
+    //THIS FUNCTION IS TO CLOSRE THE VERIFY FORM
+    $scope.closeForm = function(){
+      
+      document.getElementById('formDiv').style.display = "none";
+    }
+
+    //THIS FORM IS TO CHECK THE DETAILS IN THE VERIFY FORM AND THEN ADD THE DETAILS TO PAYMENT GOOGLE SHEETS
+    $scope.verifyPayment = function(username, password){
+      //first hardcode the username and password, later use the google sheet
+      var uname = "igniter";
+      var pass = "1";
+
+      //After form is submitted, check if login details are correct
+      if((username == uname) && (password == pass)){
+        //enter the details to the transaction database (payment_logs table)
+
+        //-----------------------------------------
+      var url = "https://script.google.com/macros/s/AKfycbzcvdl840bsB3nneQmL2AYApFlccl9N-KOQacIllXVlyOuHaUo/exec?studentid="+$scope.studentid+"&payment_type="+$scope.payment_type+"&amount="+$scope.amount+"&batch="+$scope.batch;
+              $http.get(url)
+              .then(function(response){
+                if(response.data == -1){
+                  alert("Invalid ! This is not the date of a class")
+                }
+                
+              });
+
+        //-----------------------------------------
+
+
+        alert('Login successful. Payment has been entered');
+        $scope.closeForm();
+        //
+
+
+      if($scope.payment_type == "registration"){
+        $scope.registration = true;
+      }else
+      if($scope.payment_type == "monthly1")
+      {
+        $scope.payment1 = true;
+      }else
+      if($scope.payment_type == "monthly2")
+      {
+        $scope.payment2 = true;
+      }else
+      if($scope.payment_type == "monthly3")
+      {
+        $scope.payment3 = true;
+      }else
+      if($scope.payment_type == "monthly4")
+      {
+        $scope.payment4 = true;
+      }else
+      if($scope.payment_type == "monthly5")
+      {
+        $scope.payment5 = true;
+      }else
+      if($scope.payment_type == "monthly6")
+      {
+        $scope.payment6 = true;
+      }
+      
+
+
+
+
+
+
+
+        
+      }else{
+        //calling closeForm function is not working so implement it here
+        alert('Wrong details. Please enter your user details correctly and try again.');
+        $scope.closeForm();
+      }
+
+    }
+
+
+
+
+
+
+
+
   });
