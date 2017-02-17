@@ -59,116 +59,111 @@ var myApp = angular.module('myApp',[]);
 
     //THIS FUNCTION IS TO GET THE STUDENT DETAILS WITH STUDENT ID
   	$scope.getStudentByID = function(student_id){
-  		$scope.studentid = student_id;
 
-  		$scope.results = false;
+      if(!student_id){  //check if student_id is blank , null or whitespaces
+        //if it is empty, call this custom error message function
+       // $("#dialog-confirm").dialog('open');
+        $scope.errorDialog("Empty Student Id", "Student Id field cannot be empty.");
+      }else{
 
-  		$scope.loading = true;
+    		$scope.studentid = student_id;
 
-  		var url = "https://script.google.com/macros/s/AKfycbxlIbgY8FNxTUHOJ4isajDPFGRBGwXS9Aovvf8urw9-SUakqBSn/exec?studentid="+student_id;
+    		$scope.results = false;
 
-  		$http.get(url)
-  		.then(function(response){
-  			console.log(response);
+    		$scope.loading = true;
 
-  			$scope.data = response.data;
+    		var url = "https://script.google.com/macros/s/AKfycbxlIbgY8FNxTUHOJ4isajDPFGRBGwXS9Aovvf8urw9-SUakqBSn/exec?studentid="+student_id;
 
-  			if($scope.data.length == 0){
-  				alert("Student Id not valid");
-  				$scope.loading = false;
-  			}else{
+    		$http.get(url)
+    		.then(function(response){
+    			console.log(response);
 
+    			$scope.data = response.data;
 
-
-          $scope.loading=false;
-          $scope.results=true;
-          
-          $scope.reg_no = $scope.data.students[0].reg_no;
-          $scope.name = $scope.data.students[0].kids_name;
-          $scope.age = $scope.data.students[0].age;
-          $scope.age_group = $scope.data.students[0].age_group;
-          $scope.batch = $scope.data.students[0].batch;
-          $scope.parents_name = $scope.data.students[0].parents_name;
-          $scope.email = $scope.data.students[0].email;
-          $scope.phone = $scope.data.students[0].phone;
-          $scope.qr_code = $scope.data.students[0].qr_code;
+    			if($scope.data == "STUDENT DOES NOT EXIST"){
+    				alert("Student Id does not exist or is invalid. Please correct it and try again!!");
+    				$scope.loading = false;
+    			}else{
 
 
 
-          //--Check if payments are done here
-          if($scope.data.payments.length == 0){ //if array is empty
-            //set everything to false again 
-            $scope.registration = false;
-            $scope.payment1 = false;
-            $scope.payment2 = false;
-            $scope.payment3 = false;
-            $scope.payment4 = false;
-            $scope.payment5 = false;
-            $scope.payment6 = false;
-          }else{
-            //for registration we check if its filled AND if payment_type is set to registration
-          if(($scope.data.payments[0].payment_type).toLowerCase() == "registration"){
-            $scope.registration = true;
-          }else{
-            $scope.registration = false;
-          }
-
-          //First monthly payment
-          if($scope.data.payments[1]){
-            $scope.payment1 = true;
-          }else{
-            $scope.payment1 = false;
-          }
-          //Second monthly payment
-          if($scope.data.payments[2]){
-            $scope.payment2 = true;
-          }else{
-            $scope.payment2 = false;
-          }
-          //Third monthly payment
-          if($scope.data.payments[3]){
-            $scope.payment3 = true;
-          }else{
-            $scope.payment3 = false;
-          }
-          //Fourth monthly payment
-          if($scope.data.payments[4]){
-            $scope.payment4 = true;
-          }else{
-            $scope.payment4 = false;
-          }
-          //Fifth monthly payment
-          if($scope.data.payments[5]){
-            $scope.payment5 = true;
-          }else{
-            $scope.payment5 = false;
-          }
-          //Sixth monthly payment
-          if($scope.data.payments[6]){
-            $scope.payment6 = true;
-          }else{
-            $scope.payment6 = false;
-          }
-        }//end of if empty array 
-
-
-         /* if($scope.data.payments[2].payment_type =="monthly"){
-            $scope.payment1 = true;
-
-          }else{
-            $scope.payment1 = true;
-          }*/
-
-          //if doesnt work delete payment details
-
-  				//alert("data is valid"+$scope.data.students[0].StudentName);
-  				//console.log($scope.data);
-  				//----------------------------------------
-  			}
+              $scope.loading=false;
+              $scope.results=true;
+              
+              $scope.reg_no = $scope.data.students[0].reg_no;
+              $scope.name = $scope.data.students[0].kids_name;
+              $scope.age = $scope.data.students[0].age;
+              $scope.age_group = $scope.data.students[0].age_group;
+              $scope.batch = $scope.data.students[0].batch;
+              $scope.parents_name = $scope.data.students[0].parents_name;
+              $scope.email = $scope.data.students[0].email;
+              $scope.phone = $scope.data.students[0].phone;
+              $scope.qr_code = $scope.data.students[0].qr_code;
 
 
 
-  		});
+              //--Check if payments are done here
+              if($scope.data.payments.length == 0){ //if array is empty
+                //set everything to false again 
+                $scope.registration = false;
+                $scope.payment1 = false;
+                $scope.payment2 = false;
+                $scope.payment3 = false;
+                $scope.payment4 = false;
+                $scope.payment5 = false;
+                $scope.payment6 = false;
+              }else{
+                //for registration we check if its filled AND if payment_type is set to registration
+              if(($scope.data.payments[0].payment_type).toLowerCase() == "registration"){
+                $scope.registration = true;
+              }else{
+                $scope.registration = false;
+              }
+
+              //First monthly payment
+              if($scope.data.payments[1]){
+                $scope.payment1 = true;
+              }else{
+                $scope.payment1 = false;
+              }
+              //Second monthly payment
+              if($scope.data.payments[2]){
+                $scope.payment2 = true;
+              }else{
+                $scope.payment2 = false;
+              }
+              //Third monthly payment
+              if($scope.data.payments[3]){
+                $scope.payment3 = true;
+              }else{
+                $scope.payment3 = false;
+              }
+              //Fourth monthly payment
+              if($scope.data.payments[4]){
+                $scope.payment4 = true;
+              }else{
+                $scope.payment4 = false;
+              }
+              //Fifth monthly payment
+              if($scope.data.payments[5]){
+                $scope.payment5 = true;
+              }else{
+                $scope.payment5 = false;
+              }
+              //Sixth monthly payment
+              if($scope.data.payments[6]){
+                $scope.payment6 = true;
+              }else{
+                $scope.payment6 = false;
+              }
+            }//end of if empty array 
+    			}
+
+
+
+    		});
+
+      }
   	}
 
 
@@ -280,13 +275,6 @@ var myApp = angular.module('myApp',[]);
         $scope.payment6 = true;
       }
       
-
-
-
-
-
-
-
         
       }else{
         //calling closeForm function is not working so implement it here
@@ -296,9 +284,23 @@ var myApp = angular.module('myApp',[]);
 
     }
 
+    //THIS FORM IS TO DISPLAY ERROR MESSAGE WHEN FIELD IS EMPTY
+
+    $scope.errorDialog = function(errorTitle, errorMessage){
+
+      console.log(errorTitle);
+      $scope.errorTitle = errorTitle;//title doesnt seem to work, make function with return errorTitle? (printErrorTitle)
+      
+
+      $scope.errorMessage = errorMessage;
 
 
+      $("#dialog-confirm").dialog('open');
+      
 
+          //can make this into a function with error title and error message
+
+    }
 
 
 

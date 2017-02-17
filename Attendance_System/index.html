@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Attendance System</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script type="text/javascript" src="scripts/controller.js"></script>
 
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
@@ -14,7 +14,38 @@
 
 
 
-    <link href="css/myCss.css" rel="stylesheet">
+    <link href="css/myCss.css" rel="stylesheet"><!--custom style sheet-->
+
+    <!--USING JQUERY UI -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+
+
+<script>
+  $( function() {
+    $( "#dialog-confirm" ).dialog({
+    	autoOpen:false,
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        OK: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  } );
+  </script>
+
+
+
+
+
+
 
 
 
@@ -45,13 +76,25 @@
 
 	<div ng-hide="results" class="col-md-10 content" ng-hide="loading">
 		<h3>Enter Student ID</h3>
-		<input class="form-control" ng-model="student_id" type="text" placeholder="e.g. A1234">
+		<input class="form-control" ng-model="student_id" type="text" placeholder="e.g. A1234"    >
 		<br/>
 		<button ng-click="getStudentByID(student_id)" class="btn btn-success btn-lg btn-outline btn-rounded">Search</button>
 	</div>
+
+	<!--error message box-->
+
+	<div title="{{errorTitle}}" id="dialog-confirm" >
+	  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>{{errorMessage}}</p>
+	</div>
+
+{{errorTitle}}
+
+	<!---->
+
+
 	<br/>
 	<div ng-show="results" class="content">
-		<button ng-click="results=false;student_id=''" class="btn btn-danger btn-lg btn-outline btn-rounded">Back</button>
+		<button ng-click="results=false;student_id=null" class="btn btn-danger btn-lg btn-outline btn-rounded">Back</button>
 		<br/>
 		<table border="1" id="studentDetails" class="display">
 			<thead>
@@ -101,7 +144,7 @@
 
 	        	<td>
 	        		<button ng-show="payment1"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 1</button>
-	        		<button ng-hide="payment1"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(1)" ng-model="monthlyPayment">Payment 1</button>
+	        		<button ng-hide="payment1"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(1)">Payment 1</button>
 	        	</td>
 
 		        <td>
