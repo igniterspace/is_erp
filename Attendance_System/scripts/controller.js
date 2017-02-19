@@ -288,12 +288,15 @@ var myApp = angular.module('myApp',[]);
 
     $scope.errorDialog = function(errorTitle, errorMessage){
 
-      console.log(errorTitle);
-      $scope.errorTitle = errorTitle;//title doesnt seem to work, make function with return errorTitle? (printErrorTitle)
+      $scope.errorTitle = errorTitle;//title doesnt seem to work, so set errorTitle in this function
       
 
       $scope.errorMessage = errorMessage;
 
+     // $("dialog-confirm").setAttribute('title','HELLO WORLD');
+    //document.getElementById('dialog-confirm').message = "none";
+
+      $("#dialog-confirm").dialog('option', 'title', errorTitle)
 
       $("#dialog-confirm").dialog('open');
       
