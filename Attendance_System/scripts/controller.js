@@ -81,7 +81,7 @@ var myApp = angular.module('myApp',[]);
     			$scope.data = response.data;
 
     			if($scope.data == "STUDENT DOES NOT EXIST"){
-    				alert("Student Id does not exist or is invalid. Please correct it and try again!!");
+    				$scope.errorDialog("Student does not exist", "Wrong Student Id has been entered. Please check it and try again!");
     				$scope.loading = false;
     			}else{
 
@@ -225,6 +225,18 @@ var myApp = angular.module('myApp',[]);
       var uname = "igniter";
       var pass = "1";
 
+
+
+
+
+
+ // Fix issue with html5 validation
+    if (form.checkValidity && !form.checkValidity()) {
+      return;
+    }
+
+
+
       //After form is submitted, check if login details are correct
       if((username == uname) && (password == pass)){
         //enter the details to the transaction database (payment_logs table)
@@ -241,9 +253,12 @@ var myApp = angular.module('myApp',[]);
 
         //-----------------------------------------
 
-
-        alert('Login successful. Payment has been entered');
+        $scope.successDialog("Payment entered", "Payment entered successfully by verified user.");
+        
         $scope.closeForm();
+
+
+
         //
 
 
@@ -277,14 +292,14 @@ var myApp = angular.module('myApp',[]);
       
         
       }else{
-        //calling closeForm function is not working so implement it here
-        alert('Wrong details. Please enter your user details correctly and try again.');
+        //display errorDialog and close the form
+        $scope.errorDialog("Login verification failed", "Enter the correct username and password before logging in");
         $scope.closeForm();
       }
 
     }
 
-    //THIS FORM IS TO DISPLAY ERROR MESSAGE WHEN FIELD IS EMPTY
+    //THIS FUNCTION IS TO DISPLAY ERROR MESSAGE 
 
     $scope.errorDialog = function(errorTitle, errorMessage){
 
@@ -296,14 +311,43 @@ var myApp = angular.module('myApp',[]);
      // $("dialog-confirm").setAttribute('title','HELLO WORLD');
     //document.getElementById('dialog-confirm').message = "none";
 
-      $("#dialog-confirm").dialog('option', 'title', errorTitle)
+      $("#dialog-error").dialog('option', 'title', errorTitle)
 
-      $("#dialog-confirm").dialog('open');
+      $("#dialog-error").dialog('open');
       
 
           //can make this into a function with error title and error message
-
     }
+
+
+
+
+
+
+
+//THIS FUNCTION IS TO DISPLAY SUCCESS MESSAGE
+
+    $scope.successDialog = function(successTitle, successMessage){
+
+      $scope.successTitle = successTitle;//title doesnt seem to work, so set errorTitle in this function
+      
+
+      $scope.successMessage = successMessage;
+
+     // $("dialog-confirm").setAttribute('title','HELLO WORLD');
+    //document.getElementById('dialog-confirm').message = "none";
+
+      $("#dialog-success").dialog('option', 'title', successTitle)
+
+      $("#dialog-success").dialog('open');
+    }
+
+
+
+
+
+
+
 
 
 

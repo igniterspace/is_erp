@@ -26,8 +26,8 @@
 
 <script>
   $( function() {
-    $( "#dialog-confirm" ).dialog({
-    	autoOpen:false,
+    $( "#dialog-error" ).dialog({
+      autoOpen:false,
       resizable: false,
       height: "auto",
       width: 400,
@@ -39,6 +39,50 @@
       }
     });
   } );
+
+  $( function() {
+    $( "#dialog-success" ).dialog({
+      autoOpen:false,
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        OK: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  } );
+
+
+
+  //Function to check regex of input text
+/*$('#studentSearch').keypress(function (e) {
+    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+
+    e.preventDefault();
+    return false;
+});*/
+//--end function to check input
+
+
+ function checkInputAlphaNumeric(e){
+ 	var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+
+    e.preventDefault();
+    return false;
+ }
+
+
   </script>
 
 
@@ -69,26 +113,29 @@
 
 
 
+	<!--error message box-->
+	<div id="dialog-error" >
+	  <p><span class="glyphicon glyphicon-alert" style="float:left; margin:12px 12px 20px 0; color:red; font-size: 1.7em"></span>{{errorMessage}}</p>
+	</div>
+	<!---->
 
+	<!--success message box-->
+	<div id="dialog-success">
+		<p><span class="glyphicon glyphicon-ok" style="float:left; margin:12px 12px 20px 0; color:green; font-size: 1.7em"></span>{{successMessage}}</p>
+	</div>
+	<!---->
 
 
 
 
 	<div ng-hide="results" class="col-md-10 content" ng-hide="loading">
 		<h3>Enter Student ID</h3>
-		<input class="form-control" ng-model="student_id" type="text" placeholder="e.g. A1234"    >
+		<input  class="form-control" ng-model="student_id" type="text" placeholder="e.g. A1234"  id="studentSearch"   onkeypress="checkInputAlphaNumeric(event)" >
 		<br/>
 		<button ng-click="getStudentByID(student_id)" class="btn btn-success btn-lg btn-outline btn-rounded">Search</button>
 	</div>
 
-	<!--error message box-->
 
-	<!--div title="{{errorTitle}}" id="dialog-confirm" -->
-	<div  id="dialog-confirm" >
-
-	  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>{{errorMessage}}</p>
-	</div>
-	<!---->
 
 
 	<br/>
@@ -231,7 +278,7 @@
 				<form action="#" id="form" method="post" name="form">
 						<!--put a cross image for close-->
 					<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closeForm()"></span>
-					<h3>Enter the payment details</h2>
+					<h3>Payment details</h2>
 					<hr id="loginLine">
 
 					Payment type : <b>{{payment_type}}</b>
@@ -239,12 +286,12 @@
 					<br/>
 
 
-					<input id="amount" name="amount" placeholder="Payment amount (in LKR)" type="text" class="form-control" ng-model="amount"><br/>
-					<br/>
+					<input id="amount" name="amount" placeholder="Payment amount (in LKR)" type="number" class="form-control" ng-model="amount" min="1000" max="100000" required><br/>
+					<hr/>
 					<h4>Login verification</h4>
-					<input id="uname" name="uname" placeholder="User Name" type="text" class="form-control" ng-model="username"><br/>
-					<input id="password" name="password" placeholder="Password" type="password" class="form-control" ng-model="password"><br/>
-					<a id="submit"  class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="verifyPayment(username,password)">Make payment</a>
+					<input id="uname" name="uname" placeholder="User Name" type="text" class="form-control" ng-model="username" required><br/>
+					<input id="password" name="password" placeholder="Password" type="password" class="form-control" ng-model="password" required><br/>
+					<button id="submit"  class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="verifyPayment(username,password)">Make payment</button>
 					
 				</form>
 			</div>	
