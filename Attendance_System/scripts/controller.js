@@ -1,12 +1,29 @@
-var myApp = angular.module('myApp',[]);
+var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable from square brackets and leave it empty []
 
-	myApp.controller('DashboardCtrl', function($scope, $http, $location) {
+	myApp.controller('DashboardCtrl', ['$scope', '$http','$filter', 'NgTableParams', function($scope, $http, $filter, NgTableParams) {
     
+
+
+
+
+
+//---
+
+
+//---
+
+
+
+
+
+
+
+
   	$scope.loading = false;
     //THIS FUNCTION IS TO MARK ATTENDANCE
   	$scope.markAttendance = function(){
      // $route.reload();
-     // window.location.reload(); go to starting page after attendance is marked
+
   		$scope.markingAtt = true;
   		//if this url works, then try to put both in one script
   		//alert("Student id is : "+$scope.studentid);
@@ -50,9 +67,36 @@ var myApp = angular.module('myApp',[]);
           $scope.AttDetails.push($scope.data.student_attendance[i]);
         }
 
+
+      //--DELETE IF NOT WORKING
+      $scope.AttTable = new NgTableParams({
+        page: 1,
+        count: 5
+      }, {
+        total: $scope.AttDetails.length,
+        getData: function(params){
+          $scope.data = params.sorting() ? $filter('orderBy')($scope.AttDetails, params.orderBy()) : $scope.AttDetails;
+          $scope.data = params.filter() ? $filter('filter')($scope.data, params.filter()) : $scope.data;
+          $scope.data = $scope.data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+          return $scope.data;
+        }
+      });
+
+
+
+
+
+
+
+
+      //----------
         //-------------------------------------------------------------------
 
       });
+
+
+
+
     }
 
     //----------------------------------
@@ -231,6 +275,7 @@ var myApp = angular.module('myApp',[]);
 
 
  // Fix issue with html5 validation
+ //here we are giving time to validate payment form.
     if (form.checkValidity && !form.checkValidity()) {
       return;
     }
@@ -352,4 +397,4 @@ var myApp = angular.module('myApp',[]);
 
 
 
-  });
+  }]);

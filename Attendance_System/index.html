@@ -7,9 +7,9 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <!--INCLUDING FOR DATA TABLES-->
-    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <!--INCLUDING FOR NG-table TABLES-->
+    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+	<script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
 
 
 
@@ -244,24 +244,20 @@
 			<button ng-click="" class="btn btn-primary btn-lg btn-outline btn-rounded">Hide Attendance</button><!--CODE THIS LATER-->
 			<h1>RREMOVE DATA TABLES AND USE ANGULAR DATA TABLES</h1>
 
-			<table border="1" id="attendance">
-				<thead>
-					<tr>
-						<th>Registration Number</th>
-						<th>Date</th>
-						<th>Batch</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="att in AttDetails"  >
+
+
+			<table ng-table="AttTable" class="table table-bordered table-striped"  >
+				
+					<tr ng-repeat="att in $data track by $index"  > <!--track it by the array value-->
 
 						
-						<td >{{att.reg_no}}</td>
-						<td >{{att.date}}</td>
-						<td >{{att.batch}}</td>
+						<td data-title="Reg_No" sortable="'reg_no'">{{att.reg_no}}</td>
+						<td data-title="Date" sortable="'date'">{{att.date | date:'mediumDate'}}</td> <!--show only date, if needed replace with shortDate or longDate-->
+						<td data-title="Batch" sortable="'batch'">{{att.batch}}</td>
 					</tr>
 				</tbody>
 			</table>
+
 
 
 
@@ -275,7 +271,7 @@
 			<!-- Popup Div Starts Here -->
 			<div id="popupLogin">
 			<!-- Contact Us Form -->
-				<form action="#" id="form" method="post" name="form">
+				<form  id="form" method="post" name="form">
 						<!--put a cross image for close-->
 					<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closeForm()"></span>
 					<h3>Payment details</h2>
