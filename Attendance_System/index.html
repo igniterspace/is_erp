@@ -8,8 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <!--INCLUDING FOR NG-table TABLES-->
-    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
-	<script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+    <link rel="stylesheet"; href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
 
 
 
@@ -125,6 +125,9 @@
 	</div>
 	<!---->
 
+	<!--payment Details box-->
+
+
 
 
 
@@ -184,37 +187,37 @@
         <table>
 	        <tr>
 	        	<td>
-	        		<button ng-show="registration"  class="btn btn-success btn-lg btn-outline btn-rounded">Registration</button>
-	        		<button ng-hide="registration"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(0)" ng-model="registration">Registration</button>
+	        		<button ng-show="registration"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(0)">Registration<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.3em"></span></button> <!--payment done-->
+	        		<button ng-hide="registration"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(0)" ng-model="registration">Registration</button> <!--payment not done-->
 	        	</td>
 
 	        	<td>
-	        		<button ng-show="payment1"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 1</button>
+	        		<button ng-show="payment1"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(1)">Payment 1<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.3em"></span></button>
 	        		<button ng-hide="payment1"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(1)">Payment 1</button>
 	        	</td>
 
 		        <td>
-		     		<button ng-show="payment2"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 2</button>
+		     		<button ng-show="payment2"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(2)">Payment 2<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.3em"></span></button>
 		        	<button ng-hide="payment2"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(2)">Payment 2</button>
 		        </td>
 
 	        	<td>
-	        		<button ng-show="payment3"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 3</button>
+	        		<button ng-show="payment3"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(3)">Payment 3<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.3em"></span></button>
 	        		<button ng-hide="payment3"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(3)">Payment 3</button>
 	        	</td>
 
 		        <td>
-		        	<button ng-show="payment4"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 4</button>
+		        	<button ng-show="payment4"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(4)">Payment 4<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.3em"></span></button>
 		        	<button ng-hide="payment4"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(4)">Payment 4</button>
 		        </td>
 
 		        <td>
-		        	<button ng-show="payment5"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 5</button>
+		        	<button ng-show="payment5"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(5)">Payment 5<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.3em"></span></button>
 		        	<button ng-hide="payment5"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(5)">Payment 5</button>
 		        </td>
 
 		        <td>
-		        	<button ng-show="payment6"  class="btn btn-success btn-lg btn-outline btn-rounded">Payment 6</button>
+		        	<button ng-show="payment6"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(6)">Payment 6<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.3em"></span></button>
 		        	<button ng-hide="payment6"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(6)">Payment 6</button>
 		        </td>
 	        </tr>
@@ -236,26 +239,21 @@
 			Marking ...
 		</div>
 
-		<!---->
+		
 		<div ng-hide="viewingAtt">
 			<button ng-click="viewAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">View Attendance</button>
 		</div>
 		<div ng-show="viewingAtt">
 			<button ng-click="" class="btn btn-primary btn-lg btn-outline btn-rounded">Hide Attendance</button><!--CODE THIS LATER-->
-			<h1>RREMOVE DATA TABLES AND USE ANGULAR DATA TABLES</h1>
+			<h2>Attendance Table for {{name}} ({{reg_no}})</h1>
 
 
-
-			<table ng-table="AttTable" class="table table-bordered table-striped"  >
-				
-					<tr ng-repeat="att in $data track by $index"  > <!--track it by the array value-->
-
-						
-						<td data-title="Reg_No" sortable="'reg_no'">{{att.reg_no}}</td>
-						<td data-title="Date" sortable="'date'">{{att.date | date:'mediumDate'}}</td> <!--show only date, if needed replace with shortDate or longDate-->
-						<td data-title="Batch" sortable="'batch'">{{att.batch}}</td>
+			<table ng-table="AttTable" class="table table-bordered table-striped">
+					<tr ng-repeat="att in $data track by $index"  > 
+						<td data-title="'Registration Number'" sortable="'reg_no'">{{att.reg_no}}</td>
+						<td data-title="'Attendance Date'" sortable="'date'">{{att.date | date:'mediumDate'}}</td> 
+						<td data-title="'Batch'" sortable="'batch'">{{att.batch}}</td>
 					</tr>
-				</tbody>
 			</table>
 
 
@@ -263,18 +261,21 @@
 
 
 
+
+
 		</div>
 
-		<!--we want login form to be shown after id is searched for-->
+		
 
 		<div id="formDiv">
+		<!--we want login form to be shown after id is searched for-->
 			<!-- Popup Div Starts Here -->
 			<div id="popupLogin">
 			<!-- Contact Us Form -->
 				<form  id="form" method="post" name="form">
 						<!--put a cross image for close-->
 					<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closeForm()"></span>
-					<h3>Payment details</h2>
+					<h3>Payment Form</h3>
 					<hr id="loginLine">
 
 					Payment type : <b>{{payment_type}}</b>
@@ -295,7 +296,22 @@
 		</div>
 
 
+		<!--Form for displaying payment details -->
+		<div id="paymentFormDiv">
+			<div id="popupPayment">
+				<form id="paymentForm" method="post" name="form">
+					<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closePaymentForm()"></span>
+					<h3>Payment Details</h3>
+					<hr/>
+					<p>Payment Date : <b>{{displayPaymentDate | date:'mediumDate'}}</b></p>
+					<p>Payment Type : <b>{{displayPaymentType}}</b></p>
+					<p>Payment Amount : <b>{{displayPaymentAmount}}</b></p>
+					<button id="submit"  class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="closePaymentForm()">OK</button>
+				</form>
+			</div>
+			
 
+		</div>
 
 
 

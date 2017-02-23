@@ -6,19 +6,6 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
 
 
 
-
-//---
-
-
-//---
-
-
-
-
-
-
-
-
   	$scope.loading = false;
     //THIS FUNCTION IS TO MARK ATTENDANCE
   	$scope.markAttendance = function(){
@@ -71,7 +58,8 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
       //--DELETE IF NOT WORKING
       $scope.AttTable = new NgTableParams({
         page: 1,
-        count: 5
+        count: 4,
+        sorting: { date: 'desc' }
       }, {
         total: $scope.AttDetails.length,
         getData: function(params){
@@ -84,14 +72,6 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
 
 
 
-
-
-
-
-
-      //----------
-        //-------------------------------------------------------------------
-
       });
 
 
@@ -102,6 +82,7 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
     //----------------------------------
 
     //THIS FUNCTION IS TO GET THE STUDENT DETAILS WITH STUDENT ID
+    //THIS FUNCTION ALSO GETS THE PAYMENT DETAILS
   	$scope.getStudentByID = function(student_id){
 
       if(!student_id){  //check if student_id is blank , null or whitespaces
@@ -304,7 +285,7 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
 
 
 
-        //
+        //after payment is made set the payment buttons
 
 
       if($scope.payment_type == "registration"){
@@ -338,7 +319,7 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
         
       }else{
         //display errorDialog and close the form
-        $scope.errorDialog("Login verification failed", "Enter the correct username and password before logging in");
+        $scope.errorDialog("Login verification failed", "Enter the correct username and password to complete verification");
         $scope.closeForm();
       }
 
@@ -366,10 +347,6 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
 
 
 
-
-
-
-
 //THIS FUNCTION IS TO DISPLAY SUCCESS MESSAGE
 
     $scope.successDialog = function(successTitle, successMessage){
@@ -388,7 +365,37 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
     }
 
 
+//THIS FUNCTION IS TO LOAD THE PAYMENT DETAILS AND DISPLAY IT IN THE WEBSITE
 
+    $scope.openPaymentForm = function(payment_type){
+
+      //------------------------------------------
+      var payment_index = payment_type;
+
+      $scope.displayPaymentDate = $scope.data.payments[payment_index].date ;
+      $scope.displayPaymentType = $scope.data.payments[payment_index].payment_type;
+      $scope.displayPaymentAmount = $scope.data.payments[payment_index].amount;
+
+
+//alert("PAYMENT DATE "+$scope.displayPaymentDate);
+//alert("PAYMENT Type "+$scope.displayPaymentType);
+//alert("PAYMENT Amount "+$scope.displayPaymentAmount);
+
+
+      document.getElementById('paymentFormDiv').style.display = "block";
+
+
+      //------------------------------------------
+
+    }
+
+
+
+    //THIS FUNCTION IS TO CLOSRE THE VERIFY FORM
+    $scope.closePaymentForm = function(){
+      
+      document.getElementById('paymentFormDiv').style.display = "none";
+    }
 
 
 
