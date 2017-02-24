@@ -17,12 +17,21 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
   		var url = "https://script.google.com/macros/s/AKfycbxlIbgY8FNxTUHOJ4isajDPFGRBGwXS9Aovvf8urw9-SUakqBSn/exec?studentid="+$scope.studentid+"&batch="+$scope.batch+"&markattendance=true";
   		$http.get(url)
   		.then(function(response){
-  			if(response.data == -1){
-  				alert("Invalid ! This is not the date of a class")
+  			if(response.data == "ATTENDANCE FAILED"){
+          $scope.errorDialog("Attendance Failed", "Today is not a class date");
+          $scope.markingAtt = false; //show the button
   			}
-  			$scope.markingAtt = false;
-        $scope.results=false;//to get back to menu
-        $scope.student_id=null;//clear the student id box
+        else if(response.data == "ATTENDANCE DUPLICATED"){
+          $scope.errorDialog("Attendance already entered", "Attendance for this student has already been entered");
+          $scope.markingAtt = false; //FUTURE IMPROVEMENT : If attendance already entered, maybe disable button or show another message
+        }
+        else
+        {
+          $scope.successDialog("Attendance Saved", "Attendance has been saved successfully");
+    			$scope.markingAtt = false;
+          //$scope.results=false;//to get back to menu
+          //$scope.student_id=null;//clear the student id box
+        }
   		});
   	}
 
@@ -30,7 +39,7 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
     //-------------------------------
     //THIS FUNCTION IS TO VIEW ATTENDANCE
     $scope.viewAttendance = function(){
-      $scope.viewingAtt = true;
+      
       var url = "https://script.google.com/macros/s/AKfycbzcvdl840bsB3nneQmL2AYApFlccl9N-KOQacIllXVlyOuHaUo/exec?studentid="+$scope.studentid;
       $http.get(url)
       .then(function(response){
@@ -38,9 +47,11 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
 
         $scope.data = response.data;
 
-        if(response.data == -1){
-          alert("Invalid ! This student has not attended any classes")
-        }
+        if(response.data == "NO ATTENDANCE RECORD"){
+          $scope.viewingAtt = false;
+          $scope.errorDialog("Attendance not found", "Student has not attended any classes yet");
+        }else{
+          $scope.viewingAtt = true;
         //$scope.viewingAtt = false;
         //$scope.results = false; //to get back to menu
         $scope.student_id = null; //clear the student id box
@@ -70,7 +81,7 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
         }
       });
 
-
+} //else end
 
       });
 
@@ -80,6 +91,13 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
     }
 
     //----------------------------------
+$scope.hideAttendance = function(){
+      $scope.viewingAtt = false;
+
+      }
+
+
+//----------------------
 
     //THIS FUNCTION IS TO GET THE STUDENT DETAILS WITH STUDENT ID
     //THIS FUNCTION ALSO GETS THE PAYMENT DETAILS
