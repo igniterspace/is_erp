@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script type="text/javascript" src="scripts/controller.js"></script>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <!--INCLUDING FOR NG-table TABLES-->
@@ -14,14 +14,18 @@
 
 
 
-    <link href="css/myCss.css" rel="stylesheet"><!--custom style sheet-->
+    
 
     <!--USING JQUERY UI -->
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 
+	<!--Using light bootstrap dashboard-->
+	<!--  Light Bootstrap Table core CSS    -->
+    <link href="css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
+<link href="css/myCss.css" rel="stylesheet"><!--custom style sheet-->
 
 
 <script>
@@ -57,20 +61,6 @@
 
 
 
-  //Function to check regex of input text
-/*$('#studentSearch').keypress(function (e) {
-    var regex = new RegExp("^[a-zA-Z0-9]+$");
-    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-    if (regex.test(str)) {
-        return true;
-    }
-
-    e.preventDefault();
-    return false;
-});*/
-//--end function to check input
-
-
  function checkInputAlphaNumeric(e){
  	var regex = new RegExp("^[a-zA-Z0-9]+$");
     var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
@@ -86,243 +76,345 @@
   </script>
 
 
-
-
-
-
-
-
-
-
 </head>
+
+
 
 
 <body ng-app="myApp" ng-controller="DashboardCtrl">
 
 
 
-<div class="container"><!---Start of the container---->
 
 
+<!-- -----------------DELETE IF NOT WORKING-------------------------- -->
+<div class="wrapper">
 
+	<div class="sidebar" data-color="blue">
 
-  <div class="jumbotron">
-    <h1 align="center">Igniter Space</h1> 
-    <p align="center">Student Attendance System</p> 
-  </div>
+	    <!--
 
+	        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+	        Tip 2: you can also add an image using data-image tag
 
+	    -->
 
-	<!--error message box-->
-	<div id="dialog-error" >
-	  <p><span class="glyphicon glyphicon-alert" style="float:left; margin:12px 12px 20px 0; color:red; font-size: 1.7em"></span>{{errorMessage}}</p>
-	</div>
-	<!---->
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+               <br/>
+                <center>
+                    <img style="width: 80%" src="assets/images/logo-white.png"/><br/>
+                    <h4>Attendance System</h4>
+                </center>    
+            </div>
 
-	<!--success message box-->
-	<div id="dialog-success">
-		<p><span class="glyphicon glyphicon-ok" style="float:left; margin:12px 12px 20px 0; color:green; font-size: 1.7em"></span>{{successMessage}}</p>
-	</div>
-	<!---->
-
-	<!--payment Details box-->
-
-
-
-
-
-	<div ng-hide="results" class="col-md-10 content" ng-hide="loading">
-		<h3>Enter Student ID</h3>
-		<input  class="form-control" ng-model="student_id" type="text" placeholder="e.g. A1234"  id="studentSearch"   onkeypress="checkInputAlphaNumeric(event)" >
-		<br/>
-		<button ng-click="getStudentByID(student_id)" class="btn btn-success btn-lg btn-outline btn-rounded">Search</button>
+         
+    	</div>
 	</div>
 
 
 
 
-	<br/>
-	<div ng-show="results" class="content">
-		<button ng-click="results=false;student_id=null" class="btn btn-danger btn-lg btn-outline btn-rounded">Back</button>
-		<br/>
-		<br/>
-		<table border="1" id="studentDetails" class="table table-bordered table-striped">
-			<thead>
-				<tr>
-					<th>Registration Number</th>
-					<th>Name</th>
-					<th>Batch</th>
-					<th>Age</th>
-					<th>Age Group</th>
-					<th>Parents Name</th>
-					<th>E-mail</th>
-					<th>Phone</th>
-					<th>QR Code</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>{{reg_no}}</td>
-					<td>{{name}}</td>
-					<td>{{batch}}</td>
-					<td>{{age}}</td>
-					<td>{{age_group}}</td>
-					<td>{{parents_name}}</td>
-					<td>{{email}}</td>
-					<td>{{phone}}</td>
-					<td>{{qr_code}}</td>
-				</tr>
-			</tbody>
-		</table>
+
+
+
+
+	<div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+
+
+
+<!-- --------------------------------------- -->
+
+
+<div class="container-fluid"><!---Start of the container-fluid---->
+
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+
+
+
+    
+
+    <div class="collapse navbar-collapse">
+                   
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--
+                        <li>
+                           <a href="">
+                               Account
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Dropdown
+                                    <b class="caret"></b>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                              </ul>
+                        </li>
+                        -->
+                        <li>
+                            <a href="#">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                </div> <!--end of container fluid-->
+                </nav>
+
+
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="">
+
+
+			  
+
+
+
+				<!--error message box-->
+				<div id="dialog-error" >
+				  <p><span class="glyphicon glyphicon-alert" style="float:left; margin:12px 12px 20px 0; color:red; font-size: 1.7em"></span>{{errorMessage}}</p>
+				</div>
+				<!---->
+
+				<!--success message box-->
+				<div id="dialog-success">
+					<p><span class="glyphicon glyphicon-ok" style="float:left; margin:12px 12px 20px 0; color:green; font-size: 1.7em"></span>{{successMessage}}</p>
+				</div>
+				<!---->
 
 
 
 
 
+				<div ng-hide="results" class="col-md-12 content" ng-hide="loading">
+					<div class="jumbotron">
+				    	<h1 >Attendance System</h1> 
+				    	 
 
-                            
-		<!-------------------------------------For the calculation and display of monthly payment-->
-
-        <h3>Payment Details</h3>
-
-        <table>
-	        <tr>
-	        	<td>
-	        		<button ng-show="registration"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(0)">Registration<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.5em"></span></button> <!--payment done-->
-	        		<button ng-hide="registration"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(0)" ng-model="registration">Registration</button> <!--payment not done-->
-	        	</td>
-
-	        	<td>
-	        		<button ng-show="payment1"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(1)">Payment 1<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.5em"></span></button>
-	        		<button ng-hide="payment1"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(1)">Payment 1</button>
-	        	</td>
-
-		        <td>
-		     		<button ng-show="payment2"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(2)">Payment 2<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.5em"></span></button>
-		        	<button ng-hide="payment2"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(2)">Payment 2</button>
-		        </td>
-
-	        	<td>
-	        		<button ng-show="payment3"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(3)">Payment 3<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.5em"></span></button>
-	        		<button ng-hide="payment3"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(3)">Payment 3</button>
-	        	</td>
-
-		        <td>
-		        	<button ng-show="payment4"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(4)">Payment 4<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.5em"></span></button>
-		        	<button ng-hide="payment4"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(4)">Payment 4</button>
-		        </td>
-
-		        <td>
-		        	<button ng-show="payment5"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(5)">Payment 5<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.5em"></span></button>
-		        	<button ng-hide="payment5"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(5)">Payment 5</button>
-		        </td>
-
-		        <td>
-		        	<button ng-show="payment6"  class="btn btn-success btn-lg btn-outline btn-rounded" ng-click="openPaymentForm(6)">Payment 6<span class="glyphicon glyphicon-ok" style="float:right; margin-left: 2px; color:white; font-size: 0.5em"></span></button>
-		        	<button ng-hide="payment6"  class="btn btn-danger btn-lg btn-outline btn-rounded" ng-click="openForm(6)">Payment 6</button>
-		        </td>
-	        </tr>
-	    </table>
+				    	<hr>
+				    	<h4>Enter Student ID</h4>
+						<input  class="form-control" ng-model="student_id" type="text" placeholder="e.g. A1234"  id="studentSearch"   onkeypress="checkInputAlphaNumeric(event)" >
+						<br/>
+						<button ng-click="getStudentByID(student_id)" class="btn btn-primary btn-lg btn-outline btn-rounded">Search</button>
+							<span class="loadingGif" ng-show="loadingGif">
+								<img id="mySpinner" src="assets/images/gears.gif" /><b>Searching...</b>
+							</span>	
+				  	</div>
+				  	<!--div class="card col-md-12">
+						if any problem, put the above from "<h3>enter stud to br/> here
+					</div-->
+				</div>
 
 
-
-                                
-		<!---------------------------------------------------------------------->
-		<!--Now mark the attendance-->
-		<!---->
-
-		<br/>
-
-
-<div id="attButtons">
-		<div ng-hide="markingAtt">
-			<button ng-click="markAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">Mark Attendance</button>
-		</div>
-		<div ng-show="markingAtt">
-			Marking ...
-		</div>
+				<br/>
+				<div ng-show="results" class="col-md-12 content">
+					
+					<br/>
+					<button ng-click="results=false;student_id=null" class="btn btn-danger btn-lg btn-outline btn-rounded">Back</button>
+					<br/>
+					<br/>
+					
 
 
-		<div ng-hide="viewingAtt">
-			<button ng-click="viewAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">View Attendance</button>
-		</div>
-		<div ng-show="viewingAtt">
-			<button ng-click="hideAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">Hide Attendance</button><!--CODE THIS LATER-->
-			<h2>Attendance Table for {{name}} ({{reg_no}})</h2>
+					<table ng-table="StudTable" class="table table-bordered table-striped table-responsive">
+							<tr > 
+								<td data-title="'Registration Number'">{{reg_no}}</td>
+								<td data-title="'Name'">{{name}}</td> 
+								<td data-title="'Batch'">{{batch}}</td>
+								<td data-title="'Age'">{{age}}</td>
+								<td data-title="'Age Group'">{{age_group}}</td>
+								<td data-title="'Parents Name'">{{parents_name}}</td>
+								<td data-title="'E-mail'">{{email}}</td>
+								<td data-title="'Phone'">{{phone}}</td>
+								<td data-title="'QR Code'">{{qr_code}}</td>
+							</tr>
+					</table>
 
 
-			<table ng-table="AttTable" class="table table-bordered table-striped">
-					<tr ng-repeat="att in $data track by $index"  > 
-						<td data-title="'Registration Number'" sortable="'reg_no'">{{att.reg_no}}</td>
-						<td data-title="'Attendance Date'" sortable="'date'">{{att.date | date:'mediumDate'}}</td> 
-						<td data-title="'Batch'" sortable="'batch'">{{att.batch}}</td>
-					</tr>
-			</table>
-		</div>
 
-</div>
+			                            
+					<!-------------------------------------For the calculation and display of monthly payment-->
+					<div class="card col-md-12">
+						<h3>Payment Buttons</h3>
+				        
+				        	<div class="btn-group btn-group-lg" role="group">
+				        			
 
-		
 
-		<div id="formDiv">
-		<!--we want login form to be shown after id is searched for-->
-			<!-- Popup Div Starts Here -->
-			<div id="popupLogin">
-			<!-- Contact Us Form -->
-				<form  id="form" method="post" name="form">
-						<!--put a cross image for close-->
-					<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closeForm()"></span>
-					<h3>Payment Form</h3>
-					<hr id="loginLine">
+					        		<button ng-show="registration"  class="btn btn-success btn-outline btn-rounded" ng-click="openPaymentForm(0)">Registration</button> <!--payment done-->
+					        		<button ng-hide="registration"  class="btn btn-danger btn-outline btn-rounded" ng-click="openForm(0)" ng-model="registration">Registration</button> <!--payment not done-->
+					        	
+					        		<button ng-show="payment1"  class="btn btn-success btn-outline btn-rounded" ng-click="openPaymentForm(1)">Payment 1</button>
+					        		<button ng-hide="payment1"  class="btn btn-danger btn-outline btn-rounded" ng-click="openForm(1)">Payment 1</button>
+					        	
+						     		<button ng-show="payment2"  class="btn btn-success btn-outline btn-rounded" ng-click="openPaymentForm(2)">Payment 2</button>
+						        	<button ng-hide="payment2"  class="btn btn-danger btn-outline btn-rounded" ng-click="openForm(2)">Payment 2</button>
+						        
+					        		<button ng-show="payment3"  class="btn btn-success btn-outline btn-rounded" ng-click="openPaymentForm(3)">Payment 3</button>
+					        		<button ng-hide="payment3"  class="btn btn-danger btn-outline btn-rounded" ng-click="openForm(3)">Payment 3</button>
+					        	
+						        	<button ng-show="payment4"  class="btn btn-success btn-outline btn-rounded" ng-click="openPaymentForm(4)">Payment 4</button>
+						        	<button ng-hide="payment4"  class="btn btn-danger btn-outline btn-rounded" ng-click="openForm(4)">Payment 4</button>
+						        
+						        	<button ng-show="payment5"  class="btn btn-success btn-outline btn-rounded" ng-click="openPaymentForm(5)">Payment 5</button>
+						        	<button ng-hide="payment5"  class="btn btn-danger btn-outline btn-rounded" ng-click="openForm(5)">Payment 5</button>
+						        
+						        	<button ng-show="payment6"  class="btn btn-success btn-outline btn-rounded" ng-click="openPaymentForm(6)">Payment 6</button>
+						        	<button ng-hide="payment6"  class="btn btn-danger btn-outline btn-rounded" ng-click="openForm(6)">Payment 6</button>
+						    
 
-					Payment type : <b>{{payment_type}}</b>
+
+
+						    
+						    </div>
+					    </div>   
+
+
+
+			                                
+					<!------------------------------------------------------------------------>
+					<!--Now mark the attendance-->
+					<!---->
 
 					<br/>
 
 
-					<input id="amount" name="amount" placeholder="Payment amount (in LKR)" type="number" class="form-control" ng-model="amount" min="1000" max="100000" required><br/>
-					<hr/>
-					<h4>Login verification</h4>
-					<input id="uname" name="uname" placeholder="User Name" type="text" class="form-control" ng-model="username" required><br/>
-					<input id="password" name="password" placeholder="Password" type="password" class="form-control" ng-model="password" required><br/>
-					<button id="submit"  class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="verifyPayment(username,password)">Make payment</button>
-					
-				</form>
-			</div>	
-			<!-- Popup Div Ends Here -->
-		</div>
+					<div id="attButtons">
+					<div class="row">
+							<div class="col-md-6">
+							<div ng-hide="markingAtt">
+								<button ng-click="markAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">Mark Attendance</button>
+								
+							</div>
+							<div ng-show="markingAtt">
+								<span class="loadingGif" ng-show="loadingGif">
+									<img id="mySpinner" src="assets/images/gears.gif" /><b>Marking attendance...</b>
+								</span>	
+							</div>
+							</div>
+
+							<div class="col-md-6">
+							<div ng-hide="viewingAtt">
+								<!-- if not working, put view attendancce button here -->
+								<button ng-click="viewAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">View Attendance</button>
+								<span class="loadingGif" ng-show="loadingGif">
+									<img id="mySpinner" src="assets/images/gears.gif" /><b>Getting attendance...</b>
+								</span>	
+							</div>
+							</div>
+					</div>
+							<div ng-show="viewingAtt">
+
+								<button ng-click="hideAttendance()" class="btn btn-primary btn-lg btn-outline btn-rounded">Hide Attendance</button><!--CODE THIS LATER-->
+
+								
+										<h4>Attendance Table for {{name}} ({{reg_no}})</h4>
+									
+									<table ng-table="AttTable" class="table table-bordered table-striped">
+										<tr ng-repeat="att in $data track by $index"  > 
+											<td data-title="'Registration Number'" sortable="'reg_no'">{{att.reg_no}}</td>
+											<td data-title="'Attendance Date'" sortable="'date'">{{att.date | date:'mediumDate'}}</td> 
+											<td data-title="'Batch'" sortable="'batch'">{{att.batch}}</td>
+										</tr>
+									</table>
+									
 
 
-		<!--Form for displaying payment details -->
-		<div id="paymentFormDiv">
-			<div id="popupPayment">
-				<form id="paymentForm" method="post" name="form">
-					<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closePaymentForm()"></span>
-					<h3>Payment Details</h3>
-					<hr/>
-					<p>Payment Date : <b>{{displayPaymentDate | date:'mediumDate'}}</b></p>
-					<p>Payment Type : <b>{{displayPaymentType}}</b></p>
-					<p>Payment Amount : <b>{{displayPaymentAmount}}</b></p>
-					<button id="submit"  class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="closePaymentForm()">OK</button>
-				</form>
-			</div>
+
+							</div>
+					</div>
+
 			
 
-		</div>
+					<div id="formDiv">
+					<!--we want login form to be shown after id is searched for-->
+						<!-- Popup Div Starts Here -->
+						<div id="popupLogin">
+						<!-- Contact Us Form -->
+							<form  id="form" method="post" name="form">
+									<!--put a cross image for close-->
+								<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closeForm()"></span>
+								<h3>Payment Form</h3>
+								<hr id="loginLine">
+
+								Payment type : <b>{{payment_type}}</b>
+
+								<br/>
+
+
+								<input id="amount" name="amount" placeholder="Payment amount (in LKR)" type="number" class="form-control" ng-model="amount" min="1000" max="100000" required><br/>
+								<hr/>
+								<h4>Login verification</h4>
+								<input id="uname" name="uname" placeholder="User Name" type="text" class="form-control" ng-model="username" required><br/>
+								<input id="password" name="password" placeholder="Password" type="password" class="form-control" ng-model="password" required><br/>
+								<button id="submit"  class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="verifyPayment(username,password)">Make payment</button>
+								
+							</form>
+						</div>	
+						<!-- Popup Div Ends Here -->
+					</div>
+
+
+					<!--Form for displaying payment details -->
+					<div id="paymentFormDiv">
+						<div id="popupPayment">
+							<form id="paymentForm" method="post" name="form">
+								<span id="closeForm" class="glyphicon glyphicon-remove-sign" ng-click="closePaymentForm()"></span>
+								<h3>Payment Details</h3>
+								<hr/>
+								<p>Payment Date : <b>{{displayPaymentDate | date:'mediumDate'}}</b></p>
+								<p>Payment Type : <b>{{displayPaymentType}}</b></p>
+								<p>Payment Amount : <b>{{displayPaymentAmount}}</b></p>
+								<button id="submit"  class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="closePaymentForm()">OK</button>
+							</form>
+						</div>
+					</div>
+
+				</div> <!-- end of ng-show results -->
 
 
 
-		<!---->
-  
+</div>
+</div> 
+</div>
+</div> 
 
 
-	</div>
+
+	<footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    
+                </nav>
+                <p class="copyright pull-right">
+                    &copy; {{dateNow | date:'yyyy'}} <a href="http://www.igniterspace.com">IgniterSpace</a>
+                </p>
+            </div>
+        </footer>
 
 
-
-</div><!---End of the container---->
-
-
+</div> <!--main panel-->
+</div> <!--end wrapper-->
 
 </body>
 </html>

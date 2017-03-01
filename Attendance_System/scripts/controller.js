@@ -3,14 +3,14 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
 	myApp.controller('DashboardCtrl', ['$scope', '$http','$filter', 'NgTableParams', function($scope, $http, $filter, NgTableParams) {
     
 
-
+    $scope.dateNow = new Date(); //to get current date
 
 
   	$scope.loading = false;
     //THIS FUNCTION IS TO MARK ATTENDANCE
   	$scope.markAttendance = function(){
      // $route.reload();
-
+     $scope.loadingGif=true;
   		$scope.markingAtt = true;
   		//if this url works, then try to put both in one script
   		//alert("Student id is : "+$scope.studentid);
@@ -20,15 +20,18 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
   			if(response.data == "ATTENDANCE FAILED"){
           $scope.errorDialog("Attendance Failed", "Today is not a class date");
           $scope.markingAtt = false; //show the button
+          $scope.loadingGif=false;
   			}
         else if(response.data == "ATTENDANCE DUPLICATED"){
           $scope.errorDialog("Attendance already entered", "Attendance for this student has already been entered");
           $scope.markingAtt = false; //FUTURE IMPROVEMENT : If attendance already entered, maybe disable button or show another message
+          $scope.loadingGif=false;
         }
         else
         {
           $scope.successDialog("Attendance Saved", "Attendance has been saved successfully");
     			$scope.markingAtt = false;
+          $scope.loadingGif=false;
           //$scope.results=false;//to get back to menu
           //$scope.student_id=null;//clear the student id box
         }
@@ -39,7 +42,7 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
     //-------------------------------
     //THIS FUNCTION IS TO VIEW ATTENDANCE
     $scope.viewAttendance = function(){
-      
+      $scope.loadingGif = true
       var url = "https://script.google.com/macros/s/AKfycbzcvdl840bsB3nneQmL2AYApFlccl9N-KOQacIllXVlyOuHaUo/exec?studentid="+$scope.studentid;
       $http.get(url)
       .then(function(response){
@@ -50,8 +53,10 @@ var myApp = angular.module('myApp',["ngTable"]); //if not working remove ngTable
         if(response.data == "NO ATTENDANCE RECORD"){
           $scope.viewingAtt = false;
           $scope.errorDialog("Attendance not found", "Student has not attended any classes yet");
+          $scope.loadingGif=false;
         }else{
           $scope.viewingAtt = true;
+          $scope.loadingGif=false;
         //$scope.viewingAtt = false;
         //$scope.results = false; //to get back to menu
         $scope.student_id = null; //clear the student id box
@@ -103,12 +108,14 @@ $scope.hideAttendance = function(){
     //THIS FUNCTION ALSO GETS THE PAYMENT DETAILS
   	$scope.getStudentByID = function(student_id){
 
+      
+
       if(!student_id){  //check if student_id is blank , null or whitespaces
         //if it is empty, call this custom error message function
        // $("#dialog-confirm").dialog('open');
         $scope.errorDialog("Empty Student Id", "Student Id field cannot be empty.");
       }else{
-
+        $scope.loadingGif = true;
     		$scope.studentid = student_id;
 
     		$scope.results = false;
@@ -126,10 +133,11 @@ $scope.hideAttendance = function(){
     			if($scope.data == "STUDENT DOES NOT EXIST"){
     				$scope.errorDialog("Student does not exist", "Wrong Student Id has been entered. Please check it and try again!");
     				$scope.loading = false;
+            $scope.loadingGif = false;
     			}else{
 
 
-
+              $scope.loadingGif=false;
               $scope.loading=false;
               $scope.results=true;
               
